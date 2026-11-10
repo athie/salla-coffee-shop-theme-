@@ -1,0 +1,13 @@
+{# Closing call-to-action band (WhatsApp / contact). component.title, text, cta_label, cta_url #}
+{% set wa = store.contacts.whatsapp ? 'https://wa.me/' ~ (store.contacts.whatsapp|replace({'+': '', ' ': ''})) : store.url %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-cta" class="sl-sec">
+  <div class="sl-wrap">
+    <div class="sl-cta">
+      <div>
+        <h2 class="sl-title">{{ component.title|default(trans('blocks.slope.cta.title')) }}</h2>
+        <p class="sl-sub">{{ component.text|default(trans('blocks.slope.cta.text')) }}</p>
+      </div>
+      <a class="sl-btn sl-btn--white" href="{{ component.cta_url|default(wa) }}">{{ component.cta_label|default(trans('blocks.slope.cta.btn')) }}</a>
+    </div>
+  </div>
+</section>

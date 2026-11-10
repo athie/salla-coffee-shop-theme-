@@ -1,0 +1,19 @@
+{#
+| Centered product shelf (V5). Pick products; if none are picked the latest products are shown, so it is never empty.
+| component.title, sub_title, products[], display_all_url, limit
+#}
+{% set p_limit = component.limit|default(4) %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-bundles" class="sl-shelf">
+  <div class="sl-wrap">
+    <h2 class="sl-h2">{{ component.title|default(trans('blocks.slope.bundles.title')) }}</h2>
+    {% set sub = component.sub_title|default(trans('blocks.slope.bundles.sub')) %}
+    {% if sub %}<p class="sl-lead">{{ sub }}</p>{% endif %}
+    {% if component.products|length %}
+      <salla-products-list data-testid="store-home-slope-bundles-list" source="selected" source-value="[{{ component.products|map((product) => product.id)|join(',') }}]" limit="{{ p_limit }}"></salla-products-list>
+    {% else %}
+      <salla-products-list data-testid="store-home-slope-bundles-list" source="latest" limit="{{ p_limit }}"></salla-products-list>
+    {% endif %}
+    {% set all_url = component.display_all_url %}
+    {% if all_url and all_url != '#' %}<div class="sl-center"><a class="sl-btn sl-btn--line" href="{{ all_url }}">{{ trans('blocks.slope.all') }}</a></div>{% endif %}
+  </div>
+</section>

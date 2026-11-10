@@ -1,0 +1,10 @@
+{# Inline trust strip (V5): rating + three USPs. component.rating, reviews, usp1..usp3 #}
+{% set icons = ['M12 21V9M12 9c0-3 2-5 5-5 0 3-2 5-5 5zM12 13c0-3-2-5-5-5 0 3 2 5 5 5z', 'M12 3c4 0 7 4 7 9s-3 9-7 9-7-4-7-9 3-9 7-9zM12 3c-2 4 2 6 0 9s2 5 0 9', 'M3 7h11v9H3zM14 10h4l3 3v3h-7'] %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-trust" class="sl-trust">
+  <div class="sl-trust__row">
+    <span class="sl-trust__item"><b>{{ component.rating|default(trans('blocks.slope.trust.rating')) }}</b><span class="sl-stars" aria-hidden="true">★★★★★</span>{{ component.reviews|default(trans('blocks.slope.trust.reviews')) }}</span>
+    {% for i in 1..3 %}
+      <span class="sl-trust__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3459D9" stroke-width="1.7" aria-hidden="true"><path d="{{ icons[i - 1] }}"/></svg>{{ attribute(component, 'usp' ~ i)|default(trans('blocks.slope.trust.u' ~ i)) }}</span>
+    {% endfor %}
+  </div>
+</section>

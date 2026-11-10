@@ -1,0 +1,221 @@
+{
+  "blocks": {
+    "header": {
+      "cart": "Cart"
+    },
+    "appBanner": {
+      "download_now": "download now"
+    },
+    "slope": {
+      "announce": "Free shipping over [limit] SAR · 10% off your first order with code FIRST",
+      "sar": "SAR",
+      "all": "View all",
+      "hero": {
+        "label": "Featured",
+        "slide": "Slide",
+        "prev": "Previous slide",
+        "next": "Next slide",
+        "cta": "Shop now",
+        "s1": {
+          "word": "HARAZ",
+          "title": "Yemen, Abdullah Hassan",
+          "text": "Specialty coffee from the Haraz highlands, with tropical fruit notes, natural sweetness and a silky body.",
+          "cta": "Shop now",
+          "price": "111.55 SAR",
+          "t1": "Tasting notes",
+          "a1": "Tropical fruit · sweetness · rich body",
+          "t2": "How to brew",
+          "a2": "Great for espresso and filter. [suggested recipe]",
+          "t3": "Buying options",
+          "a3": "250 g · 111.55 SAR — 1 kg · 379.50 SAR"
+        },
+        "s2": {
+          "word": "PANAMA",
+          "title": "Panama, Finca Rivilla",
+          "text": "A fruity harvest from Chiriquí with cherry and pear notes and clear sweetness.",
+          "cta": "Shop now",
+          "price": "66.70 SAR",
+          "t1": "Tasting notes",
+          "a1": "Fruity · cherry · pear · sweetness",
+          "t2": "How to brew",
+          "a2": "Great for espresso and filter. [suggested recipe]",
+          "t3": "Buying options",
+          "a3": "250 g · 66.70 SAR"
+        },
+        "s3": {
+          "word": "BLUE FRIDAY",
+          "title": "Blue Friday",
+          "text": "[percent] off coffees and boxes for a limited time.",
+          "cta": "Shop the offers",
+          "price": "Ends in [time]",
+          "t1": "Included products",
+          "a1": "[Coffees and boxes included in the offer]",
+          "t2": "Offer period",
+          "a2": "[Start and end dates]",
+          "t3": "How to redeem",
+          "a3": "The discount applies automatically in the cart. [or discount code]"
+        }
+      },
+      "bundle": {
+        "title": "Build your bundle",
+        "text": "Pick 3 coffees and get the bundle price. Tap any coffee to swap it.",
+        "change": "Change coffee",
+        "total": "Total",
+        "price": "[bundle price]",
+        "cta": "Get the bundle"
+      },
+      "trust": {
+        "rating": "[4.x]",
+        "reviews": "[count] reviews",
+        "u1": "Selected harvests",
+        "u2": "Roasted in Al Khobar",
+        "u3": "Fast shipping inside and outside Saudi Arabia"
+      },
+      "products": {
+        "title": "Best sellers",
+        "yemen": {
+          "name": "Yemen, Abdullah Hassan",
+          "notes": "Tropical fruit · sweetness · rich body"
+        },
+        "panama": {
+          "name": "Panama, Finca Rivilla",
+          "notes": "Fruity · cherry · pear · sweetness"
+        },
+        "bensa": {
+          "name": "Ethiopia, Bensa",
+          "notes": "Berries · chocolate · flowers · sweetness"
+        },
+        "milo": {
+          "name": "Colombia, Milo Yellow",
+          "notes": "Fruity · sweetness · peach · full body"
+        },
+        "latorre": {
+          "name": "Costa Rica, La Torre 125g",
+          "notes": "Berries · plum · raisin · sweetness"
+        },
+        "trio": {
+          "name": "Slope Trio"
+        },
+        "drip": {
+          "name": "A box for every day"
+        }
+      },
+      "bundles": {
+        "title": "Save more with bundles",
+        "sub": "Boxes that bring several coffees together, to try or to gift."
+      },
+      "categories": {
+        "title": "Something for every taste",
+        "all": "All products",
+        "g250": "250 g coffees",
+        "g1k": "1 kg coffees",
+        "prem": "Premium coffees",
+        "drip": "Drip bags",
+        "gifts": "Boxes & gifts"
+      },
+      "ads": {
+        "label": "Promotions",
+        "cta": "Order now",
+        "a1": {
+          "tag": "Save 20%",
+          "title": "A box for every day",
+          "text": "Ready specialty drip bags · 86.41 SAR",
+          "cta": "Order now"
+        },
+        "a2": {
+          "tag": "For cafés & companies",
+          "title": "Wholesale orders",
+          "text": "Regular roasting and volume pricing",
+          "cta": "Request a quote"
+        }
+      },
+      "flavors": {
+        "eyebrow": "New to specialty coffee?",
+        "title": "Which flavour do you like?",
+        "text": "Pick the taste closest to you and we will suggest the right coffee.",
+        "rec": "We recommend",
+        "view": "View product",
+        "t1": {
+          "label": "Fruity & fresh",
+          "hint": "Cherry · pear"
+        },
+        "t2": {
+          "label": "Chocolatey & balanced",
+          "hint": "Chocolate · berries"
+        },
+        "t3": {
+          "label": "Sweet & smooth",
+          "hint": "Peach · full body"
+        },
+        "t4": {
+          "label": "Something special",
+          "hint": "Limited harvest"
+        }
+      },
+      "reviews": {
+        "title": "See what they say about Slope",
+        "photo": "[customer photo]",
+        "name": "[Customer name]",
+        "quote": "[quote from a real review]",
+        "cta": "Explore the product"
+      },
+      "story": {
+        "eyebrow": "Our story",
+        "title": "From the farm… to your cup.",
+        "text": "Every bag carries an illustration of its farm, with the region, variety, process and altitude. We choose our harvests carefully and roast them in Al Khobar.",
+        "cta": "Meet Slope"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Everything you need to know",
+        "q1": "When will my order arrive?",
+        "a1": "We prepare your order within [time] and deliver within [time] depending on your city.",
+        "q2": "What grind should I choose?",
+        "a2": "Choose the grind to match your brewing method. Not sure? Message us and we will help.",
+        "q3": "How long does coffee stay fresh?",
+        "a3": "Best within [time] of the roast date, stored somewhere cool and dry.",
+        "q4": "Can I return an order?",
+        "a4": "Yes, according to the return policy shown on our policies page."
+      },
+      "cta": {
+        "title": "Need help choosing your coffee?",
+        "text": "Message us and we will suggest the right coffee for your brew method.",
+        "btn": "Contact us"
+      },
+      "footer": {
+        "promo_title": "10% off your first order",
+        "promo_text": "Sign up and be first to hear about new harvests and offers.",
+        "promo_cta": "Sign up",
+        "about": "Slope specialty coffee roastery. Started in Al Khobar, Saudi Arabia."
+      }
+    }
+  },
+  "pages": {
+    "cart": {
+      "cart_options": "Cart Options"
+    },
+    "products": {
+      "barcode": "Barcode"
+    },
+    "order": {
+      "can_edit_or_delete_your_review_within": "You can edit or delete your review within",
+      "edit_period_ended": "The period to edit the review has ended",
+      "delete_period_ended": "The period to delete the review has ended",
+      "days_since_added": "days since it was added",
+      "option_name": "Option name",
+      "option_content": "Content"
+    },
+    "thank_you": {
+      "view_invoice": "View invoice",
+      "contact_us": "Got a question? We are happy to hear from you",
+      "cashback": "Cashback",
+      "loyalty_points": "Loyalty points",
+      "gifts_title": "Gifts you cannot miss 🎉",
+      "order_received": "Thank you for shopping with us. We are working on your order."
+    }
+  },
+  "common": {
+    "bank_offer_sub_title_multiple": "Pay for your purchases via one of the following bank cards and get the specified discount",
+    "bank_offer_sub_title_single": "Pay for your purchases via :bank_name bank card and get discount"
+  }
+}

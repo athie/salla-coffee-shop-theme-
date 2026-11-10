@@ -1,0 +1,41 @@
+{#
+| Flavour finder (V5): pick a taste on one side, a recommended product appears on the other.
+| component.eyebrow/title/text, component.tastes[] : label, hint, name, notes, price, image, url
+#}
+{% set defaults = [
+  { k: 't1', rec: 'panama',  price: '66.70',  img: 'images/slope/panama.webp' },
+  { k: 't2', rec: 'bensa',   price: '55.20',  img: 'images/slope/bensa.webp' },
+  { k: 't3', rec: 'milo',    price: '82.80',  img: 'images/slope/milo.webp' },
+  { k: 't4', rec: 'yemen',   price: '111.55', img: 'images/slope/yemen.webp' }
+] %}
+{% set tastes = component.tastes|length ? component.tastes : defaults %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-flavors" class="sl-sec" id="finder">
+  <div class="sl-wrap"><div class="sl-panel sl-finder" data-sl-finder>
+    <div class="sl-finder__pick">
+      <span class="sl-eyebrow">{{ component.eyebrow|default(trans('blocks.slope.flavors.eyebrow')) }}</span>
+      <h2 class="sl-h2 sl-h2--start">{{ component.title|default(trans('blocks.slope.flavors.title')) }}</h2>
+      <p class="sl-lead sl-lead--start">{{ component.text|default(trans('blocks.slope.flavors.text')) }}</p>
+      <div class="sl-tastes" role="group">
+        {% for t in tastes %}
+          {% set d = defaults[loop.index0] is defined ? defaults[loop.index0] : {} %}
+          <button type="button" class="sl-taste{{ loop.first ? ' is-active' : '' }}" data-sl-taste="{{ loop.index0 }}" aria-pressed="{{ loop.first ? 'true' : 'false' }}"><span>{{ t.label|default(d.k ? trans('blocks.slope.flavors.' ~ d.k ~ '.label') : '') }}</span><small>{{ t.hint|default(d.k ? trans('blocks.slope.flavors.' ~ d.k ~ '.hint') : '') }}</small></button>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="sl-finder__rec">
+      {% for t in tastes %}
+        {% set d = defaults[loop.index0] is defined ? defaults[loop.index0] : {} %}
+        {% set img = t.image|default(d.img ? (d.img|asset) : '') %}
+        <div class="sl-rec" data-sl-rec="{{ loop.index0 }}" {{ loop.first ? '' : 'hidden' }}>
+          {% if img %}<img src="{{ img }}" alt="" loading="lazy">{% endif %}
+          <div>
+            <div class="sl-eyebrow">{{ trans('blocks.slope.flavors.rec') }}</div>
+            <div class="sl-rec__name">{{ t.name|default(d.rec ? trans('blocks.slope.products.' ~ d.rec ~ '.name') : '') }}</div>
+            <p>{{ t.notes|default(d.rec ? trans('blocks.slope.products.' ~ d.rec ~ '.notes') : '') }}</p>
+            <div class="sl-rec__buy"><b>{{ t.price|default(d.price|default('')) }}{{ (t.price or d.price) ? ' ' ~ trans('blocks.slope.sar') : '' }}</b><a class="sl-btn sl-btn--navy sl-btn--sm" href="{{ t.url|default(store.url) }}">{{ trans('blocks.slope.flavors.view') }}</a></div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div></div>
+</section>

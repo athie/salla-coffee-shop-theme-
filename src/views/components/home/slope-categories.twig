@@ -1,0 +1,28 @@
+{#
+| "Something for every taste" — white panel with product cut-outs and names (V5).
+| component.title, categories[] (name,url,image) or links[] (title,url,image). Empty → six default tiles.
+#}
+{% set defaults = [
+  { k: 'all', img: 'images/slope/trio.webp' }, { k: 'g250', img: 'images/slope/panama.webp' }, { k: 'g1k', img: 'images/slope/milo.webp' },
+  { k: 'prem', img: 'images/slope/latorre.webp' }, { k: 'drip', img: 'images/slope/drip.webp' }, { k: 'gifts', img: 'images/slope/gift.webp' }
+] %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-categories" class="sl-sec">
+  <div class="sl-wrap"><div class="sl-panel">
+    <h2 class="sl-h2">{{ component.title|default(trans('blocks.slope.categories.title')) }}</h2>
+    <div class="sl-cats">
+      {% if component.categories|length %}
+        {% for cat in component.categories %}
+          <a class="sl-cat" href="{{ cat.url }}"><span class="sl-cat__img">{% if cat.image %}<img src="{{ cat.image }}" alt="" loading="lazy">{% else %}<img src="{{ defaults[loop.index0 % 6].img|asset }}" alt="" loading="lazy">{% endif %}</span><span class="sl-cat__name">{{ cat.name }}</span></a>
+        {% endfor %}
+      {% elseif component.links|length %}
+        {% for l in component.links %}
+          {% if l.title %}<a class="sl-cat" href="{{ l.url|default(store.url) }}"><span class="sl-cat__img"><img src="{{ l.image|default(defaults[loop.index0 % 6].img|asset) }}" alt="" loading="lazy"></span><span class="sl-cat__name">{{ l.title }}</span></a>{% endif %}
+        {% endfor %}
+      {% else %}
+        {% for d in defaults %}
+          <a class="sl-cat" href="{{ store.url }}"><span class="sl-cat__img"><img src="{{ d.img|asset }}" alt="" loading="lazy"></span><span class="sl-cat__name">{{ trans('blocks.slope.categories.' ~ d.k) }}</span></a>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div></div>
+</section>

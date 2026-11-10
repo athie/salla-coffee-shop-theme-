@@ -1,0 +1,31 @@
+{#
+| Customer photos & reviews (V5): white panel, three tiles with product image, stars, name, quote and a button.
+| component.title, component.items[] : image, product, name, quote, stars, url
+#}
+{% set defaults = [
+  { k: 'yemen', img: 'images/slope/yemen.webp' }, { k: 'trio', img: 'images/slope/trio.webp' }, { k: 'drip', img: 'images/slope/drip.webp' }
+] %}
+{% set items = component.items|length ? component.items : defaults %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-reviews" class="sl-sec">
+  <div class="sl-wrap"><div class="sl-panel">
+    <h2 class="sl-h2">{{ component.title|default(trans('blocks.slope.reviews.title')) }}</h2>
+    <div class="sl-ugc">
+      {% for it in items %}
+        {% set d = defaults[loop.index0] is defined ? defaults[loop.index0] : {} %}
+        {% set stars = it.stars|default(5) %}
+        <figure class="sl-ugc__item">
+          <div class="sl-ugc__tile">
+            {% set img = it.image|default(d.img ? (d.img|asset) : '') %}
+            {% if img %}<img src="{{ img }}" alt="" loading="lazy">{% endif %}
+            {% if not it.image %}<span>{{ trans('blocks.slope.reviews.photo') }}</span>{% endif %}
+          </div>
+          <div class="sl-stars" role="img" aria-label="{{ stars }}/5">{% for s in 1..5 %}{{ s <= stars ? '★' : '☆' }}{% endfor %}</div>
+          <figcaption>{{ it.name|default(trans('blocks.slope.reviews.name')) }}</figcaption>
+          <div class="sl-ugc__product">{{ it.product|default(d.k ? trans('blocks.slope.products.' ~ d.k ~ '.name') : '') }}</div>
+          <blockquote>{{ it.quote|default(trans('blocks.slope.reviews.quote')) }}</blockquote>
+          <a class="sl-btn sl-btn--navy sl-btn--block" href="{{ it.url|default(store.url) }}">{{ trans('blocks.slope.reviews.cta') }}</a>
+        </figure>
+      {% endfor %}
+    </div>
+  </div></div>
+</section>

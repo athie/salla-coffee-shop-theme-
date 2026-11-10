@@ -1,0 +1,29 @@
+{#
+| Ad banners (V5): a white banner and a navy banner side by side, each with chip, title, text, pill button and product PNG.
+| component.items[] : tag, title, text, cta, url, image, style (white|navy|blue). Empty → two default banners.
+#}
+{% set defaults = [
+  { k: 'a1', img: 'images/slope/drip.webp', style: 'white' },
+  { k: 'a2', img: 'images/slope/farm.webp', style: 'navy' }
+] %}
+{% set ads = component.items|length ? component.items : defaults %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-ads" class="sl-sec" aria-label="{{ trans('blocks.slope.ads.label') }}">
+  <div class="sl-wrap"><div class="sl-ads">
+    {% for ad in ads %}
+      {% set d = defaults[loop.index0] is defined ? defaults[loop.index0] : {} %}
+      {% set k = d.k|default('') %}
+      {% set style = ad.style|default(d.style|default(loop.index0 is odd ? 'navy' : 'white')) %}
+      {% set img = ad.image|default(d.img ? (d.img|asset) : '') %}
+      <a class="sl-ad sl-ad--{{ style }}" href="{{ ad.url|default(store.url) }}">
+        <div class="sl-ad__copy">
+          {% set tag = ad.tag|default(k ? trans('blocks.slope.ads.' ~ k ~ '.tag') : '') %}
+          {% if tag %}<span class="sl-ad__tag">{{ tag }}</span>{% endif %}
+          <div class="sl-ad__title">{{ ad.title|default(k ? trans('blocks.slope.ads.' ~ k ~ '.title') : '') }}</div>
+          <div class="sl-ad__text">{{ ad.text|default(k ? trans('blocks.slope.ads.' ~ k ~ '.text') : '') }}</div>
+          <span class="sl-ad__btn">{{ ad.cta|default(k ? trans('blocks.slope.ads.' ~ k ~ '.cta') : trans('blocks.slope.ads.cta')) }}</span>
+        </div>
+        {% if img %}<img class="sl-ad__img" src="{{ img }}" alt="" loading="lazy">{% endif %}
+      </a>
+    {% endfor %}
+  </div></div>
+</section>

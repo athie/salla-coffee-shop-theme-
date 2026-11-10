@@ -1,0 +1,48 @@
+{#
+| "Build your bundle" card (V5) — overlaps the bottom of the hero. Three product circles that cycle through a pool,
+| running total with the old price struck through, bundle price and CTA.
+| component.items[] (pool): name, image, price(number)   component.price, cta_label, cta_url, title, text
+#}
+{% set pool_default = [
+  { k: 'yemen',   price: 111.55, img: 'images/slope/yemen.webp' },
+  { k: 'panama',  price: 66.70,  img: 'images/slope/panama.webp' },
+  { k: 'bensa',   price: 55.20,  img: 'images/slope/bensa.webp' },
+  { k: 'milo',    price: 82.80,  img: 'images/slope/milo.webp' },
+  { k: 'latorre', price: 126.50, img: 'images/slope/latorre.webp' }
+] %}
+{% set pool = [] %}
+{% if component.items|length >= 3 %}
+  {% for it in component.items %}
+    {% set pool = pool|merge([{ name: it.name|default(''), img: it.image|default(''), price: (it.price|default(0))|number_format(2, '.', '') }]) %}
+  {% endfor %}
+{% else %}
+  {% for it in pool_default %}
+    {% set pool = pool|merge([{ name: trans('blocks.slope.products.' ~ it.k ~ '.name'), img: it.img|asset, price: it.price|number_format(2, '.', '') }]) %}
+  {% endfor %}
+{% endif %}
+{% set sar = trans('blocks.slope.sar') %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-bundle" class="sl-bundle-wrap{{ component.overlap is same as(false) ? '' : ' is-overlap' }}" id="bundle">
+  <div class="sl-bundle" data-sl-bundle data-pool="{{ pool|json_encode|e('html_attr') }}" data-sar="{{ sar }}">
+    <div class="sl-bundle__intro">
+      <h2>{{ component.title|default(trans('blocks.slope.bundle.title')) }}</h2>
+      <p>{{ component.text|default(trans('blocks.slope.bundle.text')) }}</p>
+    </div>
+    <div class="sl-bundle__picks">
+      {% for j in 0..2 %}
+        {% set p = pool[j] %}
+        <div class="sl-pick">
+          <button type="button" class="sl-pick__btn" data-sl-pick="{{ j }}" aria-label="{{ trans('blocks.slope.bundle.change') }} {{ j + 1 }}: {{ p.name }}">
+            <span class="sl-pick__disc">{% if p.img %}<img src="{{ p.img }}" alt="" loading="lazy">{% endif %}</span>
+            <span class="sl-pick__name">{{ p.name }}</span>
+          </button>
+          {% if j < 2 %}<span class="sl-pick__plus" aria-hidden="true">+</span>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="sl-bundle__buy">
+      <div class="sl-bundle__sum">{{ trans('blocks.slope.bundle.total') }} <s><span data-sl-sum>{{ (pool[0].price + pool[1].price + pool[2].price)|number_format(2, '.', '') }}</span> {{ sar }}</s></div>
+      <div class="sl-bundle__price">{{ component.price|default(trans('blocks.slope.bundle.price')) }}</div>
+      <a class="sl-btn sl-btn--blue" href="{{ component.cta_url|default(store.url) }}">{{ component.cta_label|default(trans('blocks.slope.bundle.cta')) }}</a>
+    </div>
+  </div>
+</section>

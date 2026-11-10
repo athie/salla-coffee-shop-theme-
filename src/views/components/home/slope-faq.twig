@@ -1,0 +1,20 @@
+{# FAQ accordion (no JS: <details>). component.items[] : q, a. Empty → four translated questions. #}
+{% set items = component.items %}
+{% set n = items|length ? items|length : 4 %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-faq" class="sl-sec">
+  <div class="sl-wrap">
+    <div class="sl-head" style="justify-content:center;text-align:center"><div>
+      <span class="sl-eyebrow">{{ component.eyebrow|default(trans('blocks.slope.faq.eyebrow')) }}</span>
+      <h2 class="sl-title">{{ component.title|default(trans('blocks.slope.faq.title')) }}</h2>
+    </div></div>
+    <div class="sl-faq">
+      {% for i in 1..n %}
+        {% set it = items|length ? items[i - 1] : {} %}
+        <details {{ i == 1 ? 'open' : '' }}>
+          <summary>{{ it.q|default(trans('blocks.slope.faq.q' ~ i)) }}</summary>
+          <p>{{ it.a|default(trans('blocks.slope.faq.a' ~ i)) }}</p>
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>

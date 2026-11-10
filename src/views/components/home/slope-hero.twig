@@ -1,0 +1,76 @@
+{#
+| Slope hero — full-bleed blue slides (V5): counter, headline, price + CTA, giant background word,
+| floating product PNG + cherries/beans, flavour accordion, dots and arrows.
+| component.slides[] : word, title, text, price, cta_label, cta_url, image, bg, word_color,
+|                      acc1_t/acc1_b, acc2_t/acc2_b, acc3_t/acc3_b
+| With no slides configured, three ready-made slides (blocks.slope.hero.s1..s3) are shown.
+#}
+{% set defaults = [
+  { k: 's1', img: 'images/slope/yemen.webp',  bg: '#3459D9', wc: '#8EA9F2' },
+  { k: 's2', img: 'images/slope/panama.webp', bg: '#2F6FDB', wc: '#93B9F4' },
+  { k: 's3', img: 'images/slope/gift.webp',   bg: '#283D6D', wc: '#3F5A9C' }
+] %}
+{% set palette = ['#3459D9', '#2F6FDB', '#283D6D', '#3459D9', '#2F6FDB'] %}
+{% set wpalette = ['#8EA9F2', '#93B9F4', '#3F5A9C', '#8EA9F2', '#93B9F4'] %}
+{% set slides = component.slides|length ? component.slides : defaults %}
+{% set total = slides|length %}
+{% set first = slides[0] %}
+{% set first_bg = (first.bg and first.bg matches '/^#[0-9a-fA-F]{3,8}$/') ? first.bg : (palette[0]) %}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-hero" class="sl-hero" data-sl-hero aria-roledescription="carousel" aria-label="{{ trans('blocks.slope.hero.label') }}" style="--sl-bg: {{ first_bg }}">
+  {% for s in slides %}
+    {% set i = loop.index0 %}
+    {% set d = defaults[i] is defined ? defaults[i] : {} %}
+    {% set bg = (s.bg and s.bg matches '/^#[0-9a-fA-F]{3,8}$/') ? s.bg : (d.bg ? d.bg : palette[i % 5]) %}
+    {% set wc = (s.word_color and s.word_color matches '/^#[0-9a-fA-F]{3,8}$/') ? s.word_color : (d.wc ? d.wc : wpalette[i % 5]) %}
+    {% set k = d.k|default('') %}
+    {% set word = s.word|default(k ? trans('blocks.slope.hero.' ~ k ~ '.word') : '') %}
+    {% set h_title = s.title|default(k ? trans('blocks.slope.hero.' ~ k ~ '.title') : store.name) %}
+    {% set img = s.image|default(d.img ? (d.img|asset) : '') %}
+    <div class="sl-slide{{ i == 0 ? ' is-active' : '' }}" data-sl-slide data-bg="{{ bg }}" {{ i == 0 ? '' : 'hidden' }} style="--sl-word: {{ wc }}">
+      <div class="sl-slide__inner">
+        <div class="sl-count"><span>{{ '%02d'|format(i + 1) }}</span><small>/ {{ '%02d'|format(total) }}</small></div>
+        <div class="sl-slide__grid">
+          <div class="sl-slide__copy">
+            <span class="sl-rule" aria-hidden="true"></span>
+            <h2 class="sl-slide__title">{{ h_title }}</h2>
+            <p class="sl-slide__text">{{ s.text|default(k ? trans('blocks.slope.hero.' ~ k ~ '.text') : '') }}</p>
+            <div class="sl-slide__cta">
+              <a class="sl-btn sl-btn--white" style="color: {{ bg }}" href="{{ s.cta_url|default(store.url) }}">{{ s.cta_label|default(k ? trans('blocks.slope.hero.' ~ k ~ '.cta') : trans('blocks.slope.hero.cta')) }}</a>
+              {% set price = s.price|default(k ? trans('blocks.slope.hero.' ~ k ~ '.price') : '') %}
+              {% if price %}<span class="sl-slide__price">{{ price }}</span>{% endif %}
+            </div>
+          </div>
+          <div class="sl-stage">
+            <span class="sl-stage__word" aria-hidden="true" style="color: {{ wc }}; font-size: {{ word|length > 7 ? 'clamp(54px, 10.5vw, 150px)' : 'clamp(110px, 21vw, 300px)' }}">{{ word }}</span>
+            <svg class="sl-fl sl-fl--1" aria-hidden="true" viewBox="0 0 64 64"><circle cx="30" cy="36" r="20" fill="#D23B2E"/><circle cx="23" cy="29" r="6" fill="#E8695C"/><path d="M30 16c2-8 10-12 18-10-4 6-10 9-18 10z" fill="#3F8F4A"/></svg>
+            <svg class="sl-fl sl-fl--2" aria-hidden="true" viewBox="0 0 64 64"><circle cx="32" cy="32" r="22" fill="#B82E24"/><circle cx="25" cy="25" r="6" fill="#DC5A4D"/></svg>
+            <svg class="sl-fl sl-fl--3" aria-hidden="true" viewBox="0 0 64 64"><ellipse cx="32" cy="32" rx="18" ry="26" fill="#5A3624"/><path d="M32 8c-8 10 8 18 0 26s8 14 0 22" stroke="#2E1A10" stroke-width="3" fill="none"/></svg>
+            <svg class="sl-fl sl-fl--4" aria-hidden="true" viewBox="0 0 64 64"><ellipse cx="32" cy="32" rx="18" ry="26" fill="#6E4430"/><path d="M32 8c-8 10 8 18 0 26s8 14 0 22" stroke="#2E1A10" stroke-width="3" fill="none"/></svg>
+            {% if img %}<img class="sl-stage__img" src="{{ img }}" alt="{{ h_title|striptags }}" {{ i == 0 ? 'fetchpriority="high"' : 'loading="lazy"' }}>{% endif %}
+          </div>
+          <div class="sl-acc">
+            {% for a in 1..3 %}
+              {% set at = attribute(s, 'acc' ~ a ~ '_t')|default(k ? trans('blocks.slope.hero.' ~ k ~ '.t' ~ a) : '') %}
+              {% set ab = attribute(s, 'acc' ~ a ~ '_b')|default(k ? trans('blocks.slope.hero.' ~ k ~ '.a' ~ a) : '') %}
+              {% if at %}
+                <div class="sl-acc__item">
+                  <button type="button" class="sl-acc__btn" aria-expanded="{{ a == 1 ? 'true' : 'false' }}">{{ at }}<span aria-hidden="true">{{ a == 1 ? '−' : '+' }}</span></button>
+                  <p class="sl-acc__body" {{ a == 1 ? '' : 'hidden' }}>{{ ab }}</p>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  <div class="sl-hero__bar">
+    <div class="sl-dots">
+      {% for s in slides %}<button type="button" class="sl-dot{{ loop.first ? ' is-active' : '' }}" data-sl-dot="{{ loop.index0 }}" aria-label="{{ trans('blocks.slope.hero.slide') }} {{ loop.index }}" aria-current="{{ loop.first ? 'true' : 'false' }}">{{ '%02d'|format(loop.index) }}</button>{% endfor %}
+    </div>
+    <div class="sl-arrows">
+      <button type="button" class="sl-arrow sl-arrow--prev" data-sl-prev aria-label="{{ trans('blocks.slope.hero.prev') }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button type="button" class="sl-arrow sl-arrow--next" data-sl-next aria-label="{{ trans('blocks.slope.hero.next') }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    </div>
+  </div>
+</section>

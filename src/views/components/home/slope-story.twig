@@ -1,0 +1,12 @@
+{# Brand story (V5): solid blue block, text + white button, product image. component.eyebrow/title/text/cta_label/cta_url/image #}
+<section component-id="{{ componentId }}" data-testid="store-home-slope-story" class="sl-sec">
+  <div class="sl-wrap"><div class="sl-story">
+    <div class="sl-story__copy">
+      <span class="sl-story__eyebrow">{{ component.eyebrow|default(trans('blocks.slope.story.eyebrow')) }}</span>
+      <h2>{{ component.title|default(trans('blocks.slope.story.title')) }}</h2>
+      <p>{{ component.text|default(trans('blocks.slope.story.text')) }}</p>
+      <a class="sl-btn sl-btn--white sl-btn--navytext" href="{{ component.cta_url|default(store.url) }}">{{ component.cta_label|default(trans('blocks.slope.story.cta')) }}</a>
+    </div>
+    <div class="sl-story__media"><img src="{{ component.image|default('images/slope/trio.webp'|asset) }}" alt="{{ store.name }}" loading="lazy"></div>
+  </div></div>
+</section>
